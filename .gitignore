@@ -1,0 +1,21 @@
+*.DS_Store
+
+# Python-specific
+__pycache__/
+venv/
+build/
+dist/
+
+# Node-specific (React/frontend)
+node_modules/
+/package-lock.json
+
+
+# Environment variables and secrets
+.env
+.env.prod
+/secrets/
+
+# Version control system
+.git/
+

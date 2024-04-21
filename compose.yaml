@@ -1,0 +1,36 @@
+services:
+  backend-counter:
+    build: ./backend # Path to your Flask app's Dockerfile
+    ports:
+      - "8081:8081" # Expose Flask app on port 5000
+    volumes:
+      - ./backend:/server
+      - ./secrets:/run/secrets:ro
+    depends_on:
+      - database-counter # Ensures db service is started before flask_api
+
+  frontend-counter:
+    build: ./frontend # Path to your React app's Dockerfile
+    ports:
+      - "8080:8080" # Expose React app on port 3000
+    volumes:
+      - ./frontend/src:/app/src
+    depends_on:
+      - backend-counter # Optional: Ensures flask_api service is started before react_frontend
+
+  database-counter:
+    build: ./database # Adjust this path to where your MySQL Dockerfile is located
+    ports:
+      - "8082:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD_FILE: /run/secrets/db_root_password
+      MYSQL_DATABASE: mydatabase
+      MYSQL_USER: myuser
+      MYSQL_PASSWORD_FILE: /run/secrets/db_password
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./secrets:/run/secrets:ro
+
+volumes:
+  mysql_data: # Named volume for persisting database data
+
