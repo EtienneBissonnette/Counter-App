@@ -24,16 +24,21 @@ To get the Counter-App running locally, follow these steps (P.S you will need [D
    ```
 
 2. **Build the Docker containers**
+
+   ```bash
    docker compose up --build -d
 
+   ```
+
 3. **Create a secrets folder with aligned credentials in .env.dev**
-   Create a folder name secrets at the root of the project
-   Add a db_password.txt file with the user password inside
-   Add a db_root_password.txt file with the root password inside
-   Make sure password used in backend (env.dev) aligns with the secrets.
+
+   - Create a folder named `secrets` at the root of the project.
+   - Add a `db_password.txt` file with the user password inside.
+   - Add a `db_root_password.txt` file with the root password inside.
+   - Make sure the password used in the backend (`.env.dev`) aligns with the secrets.
 
 4. **Access Application**
-   Open your web browser and navigate to http://localhost:8080 to view the app.
+   - Open your web browser and navigate to `http://localhost:8080` to view the app.
 
 ## Usage
 
