@@ -1,8 +1,6 @@
 services:
   backend-counter:
     build: ./backend # Path to your Flask app's Dockerfile
-    ports:
-      - "8081:8081" # Expose Flask app on port 5000
     volumes:
       - ./backend:/server
     depends_on:
@@ -10,8 +8,6 @@ services:
 
   frontend-counter:
     build: ./frontend # Path to your React app's Dockerfile
-    ports:
-      - "8080:8080" # Expose React app on port 3000
     volumes:
       - ./frontend/src:/app/src
     depends_on:

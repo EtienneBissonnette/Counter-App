@@ -1,0 +1,51 @@
+services:
+  backend-counter:
+    image: backend-counter-prod-i
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.prod
+    container_name: backend-counter-prod-c
+    ports:
+      - "8081:8081"
+    volumes:
+      - ./backend:/server
+    environment:
+      - FLASK_ENV=production
+    depends_on:
+      - database-counter
+
+  frontend-counter:
+    image: frontend-counter-prod-i
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.prod
+    container_name: frontend-counter-prod-c
+    ports:
+      - "8080:80"
+    volumes:
+      - ./frontend/src:/app/src
+    environment:
+      - NODE_ENV=production
+    depends_on:
+      - backend-counter
+
+  database-counter:
+    image: database-counter-prod-i
+    build:
+      context: ./database
+      dockerfile: Dockerfile
+    container_name: database-counter-prod-c
+    ports:
+      - "8082:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD_FILE=/run/secrets/db_root_password
+      - MYSQL_PASSWORD_FILE=/run/secrets/db_password
+    secrets:
+      - db_root_password
+      - db_password
+
+secrets:
+  db_root_password:
+    file: ./secrets/db_root_password
+  db_password:
+    file: ./secrets/db_password
