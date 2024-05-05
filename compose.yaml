@@ -18,14 +18,5 @@ services:
     ports:
       - "8082:3306"
     environment:
-      MYSQL_ROOT_PASSWORD_FILE: /run/secrets/db_root_password
       MYSQL_DATABASE: mydatabase
       MYSQL_USER: myuser
-      MYSQL_PASSWORD_FILE: /run/secrets/db_password
-    volumes:
-      - mysql_data:/var/lib/mysql
-      - ./secrets:/run/secrets:ro
-
-volumes:
-  mysql_data: # Named volume for persisting database data
-

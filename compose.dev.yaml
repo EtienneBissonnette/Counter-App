@@ -40,12 +40,19 @@ services:
     environment:
       - MYSQL_ROOT_PASSWORD_FILE=/run/secrets/db_root_password
       - MYSQL_PASSWORD_FILE=/run/secrets/db_password
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./secrets/dev:/run/secrets:ro
     secrets:
       - db_root_password
       - db_password
 
 secrets:
   db_root_password:
-    file: ./secrets/db_root_password
+    file: ./secrets/dev/db_root_password
   db_password:
-    file: ./secrets/db_password
+    file: ./secrets/dev/db_password
+
+volumes:
+  mysql_data:
+    name: mysql-counter-dev-v
