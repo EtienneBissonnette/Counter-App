@@ -37,9 +37,8 @@ sudo systemctl enable docker # Enable Docker to start on boot
 sudo systemctl start docker # Start Docker service
 
 # Add current user to Docker Group to allow user to run docker cmd
-sudo groupadd docker
+sudo groupadd -f docker
 sudo usermod -aG docker $USER
-newgrp docker
 
 # Download docker-compose binaries
 echo "Installing docker-compose..."
@@ -56,11 +55,11 @@ echo "Cleaning up cached package files..."
 sudo apt-get clean
 
 
-# 4. Test if docker and docker-compose are installed successfuly.
+# 4. Test if docker and docker-compose are installed successfuly. Reset 
 if command -v docker &> /dev/null
 then
     echo "Docker installed succesfully."
-    docker --version
+    sudo docker --version
 else
     echo "Docker did not install correctly."
 fi
@@ -68,7 +67,7 @@ fi
 if command -v docker-compose &> /dev/null
 then
     echo "Docker Compose (standalone) installed succesfully."
-    docker-compose --version
+    sudo docker-compose --version
 else
     echo "Docker Compose (standalone) did not install correctly."
 fi
@@ -76,7 +75,9 @@ fi
 if docker compose version &> /dev/null
 then
     echo "Docker Compose (CLI plugin) installed succesfully."
-    docker compose version
+    sudo docker compose version
 else
     echo "Docker Compose (CLI plugin) did not install correctly."
 fi
+
+exec su - $USER #Reload shell with new permissions for user
