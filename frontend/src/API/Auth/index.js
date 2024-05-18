@@ -1,7 +1,9 @@
+const VITE_BACKEND_HOSTNAME = import.meta.env.VITE_BACKEND_HOSTNAME
+
 //Authenticate user
 const userAuth = async () => {
   const sessionToken = sessionStorage.getItem("session_token");
-  const url = "http://localhost:8081/authenticate";
+  const url = `http://${VITE_BACKEND_HOSTNAME}:8081/authenticate`;
 
   return fetch(url, {
     method: "POST",
@@ -26,7 +28,7 @@ const userAuth = async () => {
 
 //Create new user or login user
 const userLogin = async (user) => {
-  const url = "http://localhost:8081/login";
+  const url = `http://${VITE_BACKEND_HOSTNAME}:8081/login`;
 
   return fetch(url, {
     method: "POST",

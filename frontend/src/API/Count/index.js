@@ -1,7 +1,9 @@
+const VITE_BACKEND_HOSTNAME = import.meta.env.VITE_BACKEND_HOSTNAME
+
 // fetch last count of user
 const fetchCount = async () => {
   const sessionToken = sessionStorage.getItem("session_token");
-  const url = "http://localhost:8081/user/getcount";
+  const url = `http://${VITE_BACKEND_HOSTNAME}:8081/user/getcount`;
 
   return fetch(url, {
     method: "POST",
@@ -27,7 +29,7 @@ const fetchCount = async () => {
 // update count of user
 const updateCount = async (count) => {
   const sessionToken = sessionStorage.getItem("session_token");
-  const url = "http://localhost:8081/user/count";
+  const url = `http://${VITE_BACKEND_HOSTNAME}:8081/user/count`;
 
   return fetch(url, {
     method: "POST",
